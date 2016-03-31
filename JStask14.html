@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+  </head>
+<body>
+
+  <h3>污染城市列表</h3>
+  <ul id="aqi-list">
+<!--   
+    <li>第一名：福州（样例），10</li>
+  	<li>第二名：福州（样例），10</li> -->
+  </ul>
+
+<script type="text/javascript">
+
+var aqiData = [
+  ["北京", 90],
+  ["上海", 50],
+  ["福州", 10],
+  ["广州", 50],
+  ["成都", 90],
+  ["西安", 100]
+];
+
+(function () {
+
+  /*
+  在注释下方编写代码
+  遍历读取aqiData中各个城市的数据
+  将空气质量指数大于60的城市显示到aqi-list的列表中
+  */
+ 
+  var count = 0;
+  var Sum = new Array();
+  for (var i = 0; i < 6; i++) {
+    var place = aqiData[i].slice(0,1);
+    var quality = aqiData[i].slice(1);
+    var qlttoint = parseInt(quality);
+    if (qlttoint > 60)
+    {
+      count++;
+      Sum[count] = [place,quality];
+      //alert(Sum[count]);
+    };
+  };
+  for (var j = 1; j < count; j++) {
+    for (var n = j+1; n <= count; n++)
+    {         
+      if (Sum[n].slice(1) < Sum[j].slice(1))
+      {
+        var temp = Sum[n];
+        Sum[n] = Sum[j];
+        Sum[j] = temp;
+      };
+    };
+  };
+    var m = 0;
+    for (var j = 1; j <= count; j++)
+    {
+      if (parseInt(Sum[j].slice(1)) == 100)
+      {
+        var e = document.createElement('li');
+        var node = document.createTextNode('第一名'+'  '+Sum[j]);
+        e.appendChild(node);
+
+        var element = document.getElementById('aqi-list');
+        element.appendChild(e);
+        var tag = document.getElementById('aqi-list');
+        tag.style.listStyle = "none";
+        //alert(m);
+      }
+      else if (parseInt(Sum[j].slice(1)) == 90)
+      {
+        //alert("tiao zhuan dao else")
+        var e = document.createElement('li');
+        var node = document.createTextNode('第二名'+'  '+Sum[j]);
+        e.appendChild(node);
+        var element = document.getElementById('aqi-list');
+        element.appendChild(e);
+        var tag = document.getElementById('aqi-list');
+        tag.style.listStyle = "none";
+      };
+    };
+
+})();
+
+</script>
+</body>
+</html>
